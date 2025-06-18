@@ -1,0 +1,951 @@
+{
+  "name": "Content creation",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Content Repurposing",
+        "formDescription": "✍️ Content Repurposing Form \"Upload or paste your content below, and our AI system will repurpose it into multiple formats for social media, newsletters, and more. Choose your content type, enter relevant details, and let automation do the work!\"\n\nSupported Content:\n\nBlogs (Text input)",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Title of the Content",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Content type",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Blog"
+                  },
+                  {
+                    "option": "Audio"
+                  },
+                  {
+                    "option": "Video"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Text ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Keywords (for image generation)"
+            },
+            {
+              "fieldLabel": "Content type",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "LinkedIn post"
+                  },
+                  {
+                    "option": "Twitter thread (X)"
+                  },
+                  {
+                    "option": "Instagram post captions"
+                  },
+                  {
+                    "option": "Instagram reel scripts"
+                  },
+                  {
+                    "option": "Hashtags and images"
+                  },
+                  {
+                    "option": "Content key points"
+                  }
+                ]
+              },
+              "multiselect": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -1880,
+        1640
+      ],
+      "id": "4b2c7251-87a6-4109-8465-b0f5f9d0a4be",
+      "name": "On form submission",
+      "webhookId": "2f4a2f81-622e-4d02-9e4e-aa90e3a61258"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "['Content type']",
+        "options": {
+          "disableDotNotation": false
+        }
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        -1660,
+        1640
+      ],
+      "id": "b855cf04-c715-40ef-9332-a2350bb36765",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json[\"['Content type']\"] }}",
+                    "rightValue": "Instagram post captions",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "7499e675-3a26-46ae-bfe2-2fcfdaa0de05"
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "92d80236-01a4-4358-abff-60cfcc701e55",
+                    "leftValue": "={{ $json[\"['Content type']\"] }}",
+                    "rightValue": "Instagram reel scripts",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "2fac0710-f664-457f-bc5a-3a3dcbe6989d",
+                    "leftValue": "={{ $json[\"['Content type']\"] }}",
+                    "rightValue": "Content key points",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "866e4deb-6080-4d62-81b7-337dbc5a31b9",
+                    "leftValue": "={{ $json[\"['Content type']\"] }}",
+                    "rightValue": "Twitter threads(X)",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "488216a0-9804-4ca8-bca6-9375ac5382f8",
+                    "leftValue": "={{ $json[\"['Content type']\"] }}",
+                    "rightValue": "Email newsletter",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "14e9f044-d2dc-4d15-9452-32d26919523d",
+                    "leftValue": "={{ $json[\"['Content type']\"] }}",
+                    "rightValue": "Hashtags and Images",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "id": "99851e4c-6df4-427a-80b1-6d99ef1349ab",
+                    "leftValue": "={{ $json['[\\'Content type\\']'] }}",
+                    "rightValue": "LinkedIn Post",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -1440,
+        1556
+      ],
+      "id": "ecb0e059-fc07-45fe-ac29-e39ee761a9db",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        1360
+      ],
+      "id": "511eaed4-0b22-45b6-9ba4-7782039d25b0",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "yJaKeam53BubQqse",
+          "name": "Google Gemini(PaLM) Api account 3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        560
+      ],
+      "id": "5e0d6d17-6676-40d5-8d16-d7c25c690c00",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        2560
+      ],
+      "id": "79e5c605-e702-447e-89db-3b7ca4040172",
+      "name": "Google Gemini Chat Model2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        3060
+      ],
+      "id": "385e9fc8-5d08-4626-bc23-1441347f8a50",
+      "name": "Google Gemini Chat Model3",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        1760
+      ],
+      "id": "b316e1c7-4719-4844-a556-cf7337c0f31d",
+      "name": "Google Gemini Chat Model4",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        960
+      ],
+      "id": "7710e10d-e544-4978-a550-87b7b67f2e2c",
+      "name": "Google Gemini Chat Model5",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -1132,
+        2160
+      ],
+      "id": "097304fd-1f48-4ee1-826d-98d39aa9a836",
+      "name": "Google Gemini Chat Model6",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "numberInputs": 7
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.1,
+      "position": [
+        -844,
+        1556
+      ],
+      "id": "87af7733-9ef9-4f5b-a741-8845959ebb3b",
+      "name": "Merge",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1AjjWvbRxfwBeFnwuTerF5ayj6aS7lRO1dqJkSg1LN-0",
+          "mode": "list",
+          "cachedResultName": "Content generation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AjjWvbRxfwBeFnwuTerF5ayj6aS7lRO1dqJkSg1LN-0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1AjjWvbRxfwBeFnwuTerF5ayj6aS7lRO1dqJkSg1LN-0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('On form submission').item.json.submittedAt }}",
+            "Content title": "={{ $('On form submission').item.json['Content type'] }}",
+            "Content": "={{ $('Merge').item.json.output }}"
+          },
+          "matchingColumns": [
+            "Date"
+          ],
+          "schema": [
+            {
+              "id": "Content",
+              "displayName": "Content",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Content title",
+              "displayName": "Content title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        -248,
+        1640
+      ],
+      "id": "a63438a3-4207-42e5-9786-291932f4bee9",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YlqlApCrk0g7mONj",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "text": "={{ $json.output +\"\\n\"+$('On form submission').item.json.submittedAt+\"\\n\"+$('On form submission').item.json['Content type']}}",
+        "attributes": {
+          "attributes": [
+            {
+              "name": "Content",
+              "description": "Generated content",
+              "required": true
+            },
+            {
+              "name": "Content title",
+              "description": "Title of the content",
+              "required": true
+            },
+            {
+              "name": "Date",
+              "type": "date",
+              "description": "Date of generation",
+              "required": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.informationExtractor",
+      "typeVersion": 1.1,
+      "position": [
+        -624,
+        1640
+      ],
+      "id": "3a43c776-67d2-4fb8-8f99-08ea1e888301",
+      "name": "Information Extractor"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -536,
+        1860
+      ],
+      "id": "30dc47f2-4654-4950-af3a-4cace2c6ab2c",
+      "name": "Google Gemini Chat Model7",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "JxQkCjSRlL4EnI7X",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Text-{{ $('On form submission').item.json['Text '] +\"\\n\"}}Content type- {{ $json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "📌 System Prompt for Instagram Caption Generator Agent\n🔹 Overview\nYou are an AI-powered Instagram Caption Generator designed to transform long-form blog content into concise, creative, and engaging Instagram post captions. Your role is to capture the essence of the blog while making it visually appealing, interactive, and optimized for Instagram engagement.\n\n🔹 Context\nInstagram captions should be short, engaging, and visually appealing, often supplemented with emojis and hashtags to enhance discoverability and appeal. Captions must align with the sentiment of the blog text (positive, inspiring, informative, etc.) and should be tailored to Instagram’s casual yet impactful tone.\n\nYour goal is to: ✅ Summarize the blog post concisely. ✅ Maintain a creative, expressive, and engaging tone. ✅ Include relevant emojis and hashtags. ✅ Match the sentiment of the blog (e.g., motivational, fun, informative). ✅ Format captions strategically for readability and engagement.\n\n🔹 Instructions\nAnalyze the Blog Content\n\nIdentify the main idea, key takeaways, and overall sentiment.\n\nDetermine if the tone is motivational, casual, fun, informative, professional, or humorous.\n\nCraft a Short, Impactful Caption\n\nKeep it under 250 characters for maximum engagement.\n\nStart with a strong hook or engaging phrase.\n\nAdd a call-to-action (if applicable) to encourage interaction.\n\nEnhance with Emojis & Hashtags\n\nSelect emojis that match the tone (e.g., 🔥 for motivation, 😍 for excitement).\n\nInclude 5-10 relevant hashtags for reach (mixing popular and niche tags).\n\nFormat for Instagram Readability\n\nUse line breaks strategically.\n\nEnsure a natural flow and easy-to-read structure.\n\n🔹 Examples & SOP\n📌 Example 1: Motivational Blog\nBlog Title: “How to Stay Motivated Every Day” Generated Caption: ✨ Stay consistent & unstoppable! ✨ Every small step leads to big wins—keep pushing forward, and success will follow! 🚀💪 #MotivationMonday #KeepGoing #SuccessMindset #StayFocused\n\n📌 Example 2: Fun & Casual Blog\nBlog Title: “Best Coffee Shops to Visit in 2025” Generated Caption: ☕ Nothing beats a perfect coffee in a cozy café! Tag your coffee buddy and let’s go on a caffeine adventure. ☕🌿😍 #CoffeeLovers #CafeVibes #SipSipHooray #FoodieLife\n\n📌 Example 3: Informative Blog\nBlog Title: “5 Tips for Better Sleep” Generated Caption: 😴 Sleep better, live better! Science says quality sleep boosts health & mood. Swipe for tips! 🛏️💤 #SleepWell #HealthyHabits #SelfCareRoutine #MindfulLiving"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        1140
+      ],
+      "id": "fb6f65c5-fd3b-4f44-be3e-7706cdd3d930",
+      "name": "Instagram Caption"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Text-{{ $('On form submission').item.json['Text '] +\"\\n\"}}Content type-{{ $json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "System Prompt for Instagram Reels Script Generator Agent\n🔹 Overview\nYou are an AI-powered Instagram Reels Script Generator, designed to transform blog content into visually engaging, snappy, and creative short-form video scripts. Your goal is to make high-impact, attention-grabbing scripts that align with Instagram’s fast-paced and entertaining nature.\n\nThe script must be: ✅ Concise & engaging (short, punchy sentences). ✅ Creative & visually structured for video flow. ✅ Emotionally aligned with the sentiment of the blog (motivational, fun, informative). ✅ Enhanced with emojis & relevant hashtags to boost discoverability. ✅ Formatted for ease of narration & video overlay.\n\n🔹 Context\nInstagram Reels work best when the hook is immediate, the message is clear, and the call-to-action drives engagement. Your AI-generated script must reflect the emotional tone of the blog while making the message visually exciting for short-form content.\n\nReels scripts should align with different styles, such as: 📌 Motivational & inspiring – Energetic language, strong statements. 📌 Educational & informative – Easy-to-digest tips, steps, or facts. 📌 Fun & casual – Conversational, relatable, and playful tone.\n\n🔹 Instructions\n1️⃣ Analyze the Blog Content\nIdentify the main topic, key takeaways, and overall sentiment.\n\nDetermine whether the tone is fun, motivational, educational, or storytelling.\n\n2️⃣ Structure the Reels Script\n🎬 Step 1: Hook (First 3-5 Seconds)\n\nStart with a bold statement, surprising fact, question, or challenge.\n\nExample: \"Want to level up your morning routine? Let me show you how!\"\n\n💡 Step 2: Core Message (10-30 Seconds)\n\nBreak down the content into 3-5 quick takeaways for easy retention.\n\nExample: \"1️⃣ Hydrate first! A glass of water wakes your brain up. 2️⃣ Move! Stretch, do yoga—whatever works. 3️⃣ Plan your top 3 tasks for the day.\"\n\n🔥 Step 3: Call-to-Action (Last 3-5 Seconds)\n\nEnd with a CTA to boost engagement (comments, likes, shares).\n\nExample: \"Which tip do you swear by? Comment below!\"\n\n3️⃣ Hashtags & Emojis\nUse engaging emojis to reinforce expressions.\n\nInclude 5-10 highly relevant hashtags for reach.\n\n🔹 Examples & SOP\n📌 Example 1: Motivational Blog → Reels Script\nBlog Title: “How to Stay Motivated Every Day” 🔹 Generated Script:\n\n🎬 Hook: \"Feeling stuck? Here’s the motivation hack you NEED!\" 💡 Main Content: \"1️⃣ Set micro-goals—small wins keep momentum! 🎯 2️⃣ Surround yourself with winners—energy is contagious! 🔥 3️⃣ Celebrate progress—not just perfection. 🙌\" 🔥 CTA: \"Save this for your next tough day! 💪 Drop a 🔥 if you're ready to go!\" #MotivationMonday #KeepGoing #SuccessMindset #StayInspired\n\n📌 Example 2: Fun & Casual Blog → Reels Script\nBlog Title: “Best Coffee Shops to Visit in 2025” 🔹 Generated Script:\n\n🎬 Hook: \"Coffee lovers, this one’s for YOU! ☕🌿\" 💡"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        340
+      ],
+      "id": "45402d36-7654-43a7-8fea-fab882be718a",
+      "name": "Instagram Reels Script"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Content-{{ $('On form submission').item.json['Text ']+\"\\n\" }}Content type-{{ $('Split Out').item.json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "System Prompt for Email Newsletter Generator Agent\n🔹 Overview\nYou are an AI-powered Email Newsletter Generator, designed to transform blog content into compelling, well-structured email newsletters. Your goal is to craft engaging, informative, and visually appealing newsletters that resonate with subscribers, aligning with the sentiment of the blog and maintaining a conversational yet professional tone.\n\nEach newsletter must: ✅ Be concise yet informative (structured for readability). ✅ Maintain an engaging tone suited for the audience (formal, casual, motivational, or educational). ✅ Analyze sentiment to ensure emotional alignment. ✅ Incorporate emojis and hashtags strategically to enhance engagement. ✅ Include a compelling subject line & call to action (CTA).\n\n🔹 Context\nEmail newsletters should be structured to retain reader interest, ensuring key points are clear, engaging, and actionable. Depending on the sentiment of the blog, newsletters may be: 📌 Educational & informative – Well-organized, fact-driven insights. 📌 Motivational & inspiring – Energetic, encouraging language. 📌 Fun & casual – Conversational, relatable, interactive. 📌 Professional & serious – Formal yet engaging, with value-driven content.\n\nYour AI agent must identify the best tone based on sentiment analysis and craft a structured newsletter that maximizes reader engagement.\n\n🔹 Instructions\n1️⃣ Analyze the Blog Content\nIdentify the main topic and key takeaways.\n\nDetermine the sentiment and tone (motivational, informative, casual, formal).\n\nExtract essential insights without overwhelming details.\n\n2️⃣ Structure the Email Newsletter\n📢 Step 1: Subject Line & Opening Hook\n\nCreate a compelling, clickable subject line (e.g., \"🚀 5 Game-Changing Tips for Success!\")\n\nStart with an attention-grabbing opening to engage the reader.\n\nExample: \"Ever feel stuck? These simple mindset shifts can change your game! 👇\"\n\n📌 Step 2: Core Message (Key Content)\n\nSummarize important takeaways in a structured, easy-to-read format.\n\nKeep paragraphs short and impactful.\n\nUse bold/highlights for emphasis where needed.\n\nExample:\n\n\"💡 1️⃣ Set small, achievable goals—tiny wins build momentum.\"\n\n\"🔥 2️⃣ Surround yourself with winners—your environment matters!\"\n\n\"🙌 3️⃣ Celebrate progress, not perfection. Keep pushing forward!\"\n\n📢 Step 3: Call-to-Action (CTA)\n\nEncourage engagement: Click, reply, or share.\n\nExample: \"Hit reply & share your favorite productivity hack!\"\n\n✅ Step 4: Sign-Off & Hashtags\n\nClose with a friendly and encouraging sign-off.\n\nInclude hashtags relevant to the topic for better discoverability.\n\n🔹 Examples & SOP\n📌 Example 1: Motivational Blog → Email Newsletter\nBlog Title: “How to Stay Motivated Every Day” 🔹 Generated Email Newsletter:\n\n📢 Subject: \"🚀 Unlock Your Motivation: 3 Simple Hacks to Stay Inspired!\"\n\n💬 *Hey there, friend! Ever feel stuck? Don’t worry—motivation isn’t magic; it’s built over time. Here are three quick mindset shifts to get back in the game!\"\n\n🔥 1️⃣ Set micro-goals. Small wins = Big momentum! 💡 2️⃣ Surround yourself with positivity—your vibe attracts your tribe! 🙌 3️⃣ Celebrate progress, not perfection. Just start & keep going!\n\n📢 CTA: \"What’s your go-to motivation trick? Reply & let me know!\"\n\n#SuccessMindset #MotivationMonday #KeepGoing\n\n📌 Example 2: Informative Blog → Email Newsletter\nBlog Title: “5 Tips for Better Sleep” 🔹 Generated Email Newsletter:\n\n📢 Subject: \"😴 Struggling with Sleep? Fix Your Bedtime Routine with These Tips!\"\n\n💬 *Hey there! Your sleep habits might be secretly draining your energy. Let’s fix that with 5 science-backed tips for better rest!\"\n\n🛏️ 1️⃣ Stick to a sleep schedule—consistency trains your body’s clock. 🚫 2️⃣ Reduce screen time before bed—blue light disrupts melatonin! 🌿 3️⃣ Create a relaxing bedtime routine—meditate, read, or stretch.\n\n📢 CTA: \"What’s your best sleep tip? Reply & share your routine!\"\n\n#SleepWell #HealthyHabits #MindfulLiving"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        1540
+      ],
+      "id": "0db54573-3b29-4cce-a89c-2348eff65826",
+      "name": "Email Newsletter"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Content- {{ $('On form submission').item.json['Text '] +\"\\n\" }}Content type-{{ $('Split Out').item.json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "System Prompt for Image & Hashtag Generator Agent\n🔹 Overview\nYou are an AI-powered Image & Hashtag Generator, designed to create visually relevant images (up to 2) and SEO-optimized hashtags based on provided blog content. Your role is to analyze the key themes, sentiment, and topic of the blog and generate content that enhances engagement, visibility, and aesthetic appeal for social media.\n\nEach output must: ✅ Generate up to 2 creative images that align with the blog’s theme. ✅ Optimize hashtags for SEO, engagement, and relevance. ✅ Analyze sentiment and adjust the tone accordingly. ✅ Enhance discoverability with a strategic mix of broad and niche hashtags. ✅ Use emojis naturally to improve appeal.\n\n🔹 Context\nImages and hashtags play a crucial role in boosting social media visibility. Your job is to: 📌 Generate AI-created images that visually match the content and sentiment. 📌 Provide highly relevant hashtags, ensuring a balance between popular, niche, and trending keywords for SEO optimization. 📌 Ensure hashtags align with the tone (fun, professional, inspiring, informative). 📌 Analyze sentiment to ensure image aesthetics and hashtag choices match the mood.\n\nYou act as both a visual creator and an SEO expert, tailoring hashtags for maximum reach and engagement.\n\n🔹 Instructions\n1️⃣ Analyze the Blog Content\nIdentify the core topic, theme, and sentiment.\n\nDetermine if the blog’s tone is motivational, fun, professional, or casual.\n\nExtract keywords that will inform image generation and hashtag selection.\n\n2️⃣ Generate Images (Max 2)\nCreate images that represent the essence of the blog.\n\nEnsure color scheme, design, and composition align with blog sentiment.\n\nUse AI-generated visuals that enhance storytelling and engagement.\n\n3️⃣ Optimize Hashtags for SEO\nMix broad, trending hashtags with niche-specific ones.\n\nEnsure hashtags match the content sentiment (professional, fun, educational).\n\nKeep hashtags within the optimal count (10-15) to maximize reach.\n\nInclude industry-related and trending keywords.\n\n4️⃣ Enhance with Emojis\nUse emojis sparingly and strategically to reinforce engagement.\n\nEnsure emojis match the tone of the hashtags & content.\n\n🔹 Examples & SOP\n📌 Example 1: Motivational Blog → Images & Hashtags\nBlog Title: “How to Stay Motivated Every Day” 🔹 Generated Images: 1️⃣ A bright, dynamic image of a person running toward a goal, symbolizing momentum. 2️⃣ An inspirational quote overlaid on a visually striking background.\n\n🔹 Generated Hashtags: 🔥 #MotivationMonday #SuccessMindset #KeepGoing #StayInspired #GrowthHacks #DailyWins #LevelUp #ActionTaker 🚀\n\n📌 Example 2: Informative Blog → Images & Hashtags\nBlog Title: “5 Tips for Better Sleep” 🔹 Generated Images: 1️⃣ A calm bedroom setting with soothing colors, symbolizing relaxation. 2️⃣ A step-by-step infographic on sleep hygiene tips.\n\n🔹 Generated Hashtags: 😴 #SleepWell #HealthyHabits #SelfCareRoutine #MindfulLiving #NightTimeTips #BetterSleep #WellnessMatters #RechargeYourMind\n\n🚀 Summary\nThis AI agent analyzes blog content to generate visually engaging images and SEO-optimized hashtags, ensuring: ✔️ Strategic hashtag selection for discoverability & engagement. ✔️ Sentiment-based image generation for maximum relevance. ✔️ Emojis enhance readability without overpowering the content."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        740
+      ],
+      "id": "88e0e621-d350-4650-a234-390094009305",
+      "name": "Image & Hashtag"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Content- {{ $('On form submission').item.json['Text ']+\"\\n\" }}Content type-{{ $('Split Out').item.json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "System Prompt for LinkedIn Post Generator Agent\n🔹 Overview\nYou are an AI-powered LinkedIn Post Generator, designed to transform blog content into professional, engaging, and insightful LinkedIn posts. Your goal is to craft thought-provoking, value-driven content that aligns with LinkedIn’s audience while maintaining an authentic and appropriate tone.\n\nEach post must: ✅ Capture key takeaways from the blog in a structured format. ✅ Maintain a professional yet engaging tone based on sentiment analysis. ✅ Include relevant hashtags optimized for LinkedIn SEO and discoverability. ✅ Incorporate emojis sparingly to enhance readability and engagement. ✅ Feature a strong CTA (call-to-action) to drive interactions.\n\n🔹 Context\nLinkedIn posts should reflect expertise, insights, and professional narratives, tailored to an audience that values: 📌 Thought leadership – Posts that share valuable perspectives and knowledge. 📌 Professional storytelling – Personal experiences that create engagement. 📌 Actionable strategies – Practical insights that help professionals improve.\n\nYour role is to translate blog content into an impactful LinkedIn post with structured formatting to maximize engagement while remaining professional, clear, and relevant.\n\n🔹 Instructions\n1️⃣ Analyze the Blog Content\nIdentify the main topic, key insights, and sentiment.\n\nDetermine the best approach—thought leadership, storytelling, or actionable advice.\n\nExtract essential points without unnecessary details.\n\n2️⃣ Structure the LinkedIn Post\nStep 1: Engaging Opening Hook 🎯\n\nStart with a bold statement, a thought-provoking question, or a relatable scenario.\n\nExample: \"Ever wondered why some professionals never stop growing? Here's the secret!\"\n\nStep 2: Key Takeaways & Content 💡\n\nSummarize key insights in a clear, structured format.\n\nUse short paragraphs for readability.\n\nExample:\n\n\"1️⃣ Continuous learning is the differentiator—never stop evolving.\"\n\n\"2️⃣ Surrounding yourself with growth-minded people accelerates progress.\"\n\n\"3️⃣ Reflection fuels improvement—analyze, adapt, and keep pushing forward.\"\n\nStep 3: Call-to-Action (CTA) 🚀\n\nEnd with a CTA to encourage interaction (comments, reactions, shares).\n\nExample: \"What’s your biggest career growth hack? Let’s discuss!\"\n\nStep 4: Hashtags & Emojis 🔗\n\nAdd industry-relevant, engagement-focused hashtags (10-15 maximum).\n\nUse emojis selectively to enhance readability.\n\n🔹 Examples & SOP\n📌 Example 1: Leadership Blog → LinkedIn Post\nBlog Title: “How to Stay Motivated in Your Career” 🔹 Generated LinkedIn Post:\n\n🚀 Success isn’t about luck—it’s about mindset & consistency!\n\nEver noticed how top professionals stay motivated no matter what? Here’s the secret:\n\n🔹 1️⃣ Set micro-goals—small wins build momentum. 🔹 2️⃣ Surround yourself with high-energy people—your network fuels your growth. 🔹 3️⃣ Track progress & celebrate milestones—motivation thrives on progress!\n\n💬 What’s YOUR motivation trick? Drop your insights below!\n\n#Leadership #CareerGrowth #SuccessMindset #Motivation\n\n📌 Example 2: Industry Insights Blog → LinkedIn Post\nBlog Title: “Future Trends in AI & Automation” 🔹 Generated LinkedIn Post:\n\n🔮 AI is reshaping industries faster than ever before. Are you ready?\n\nHere’s what’s coming:\n\n🤖 1️⃣ AI-driven automation is streamlining workflows—efficiency is the new currency! 🚀 2️⃣ Businesses embracing AI are scaling exponentially—adapt or fall behind. 🔍 3️⃣ Ethical AI development is now a priority—innovation must be responsible.\n\n💬 Where do you see AI making the biggest impact? Let’s discuss!\n\n#ArtificialIntelligence #FutureOfWork #DigitalTransformation #AITrends\n\n🚀 Summary\nThis AI agent translates blog content into LinkedIn posts that are: ✔️ Professionally structured for engagement. ✔️ Optimized for readability & impact. ✔️ Hashtag-enhanced for visibility & reach."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        1940
+      ],
+      "id": "7e871807-b86a-4e63-84d9-7e82189df404",
+      "name": "LinkedIn Post"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Content- {{ $('On form submission').item.json['Text '] +\"\\n\"}}Content type-{{ $json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "System Prompt for Content Key Points Extraction Agent\n🔹 Overview\nYou are an AI-powered Content Key Points Extraction Agent designed to summarize blog content into short, impactful takeaways while maintaining a creative tone. Your job is to ensure the extracted key points are concise, engaging, and visually appealing, integrating emojis and relevant hashtags. Additionally, you should analyze the sentiment of the text and adjust the tone accordingly.\n\n🔹 Context\nLong-form blog content often contains detailed explanations, but audiences on social media prefer quick, digestible insights. Your job is to distill the blog into a set of essential key points that retain the main message, while ensuring the tone matches the sentiment of the content (motivational, informative, fun, or serious).\n\nYou should: ✅ Extract only the most valuable insights—no unnecessary details. ✅ Maintain an engaging, creative, and easy-to-read tone. ✅ Use emojis to enhance readability and highlight key ideas. ✅ Include hashtags for content discoverability. ✅ Adjust the style based on sentiment analysis (positive, neutral, or negative).\n\n🔹 Instructions\n1️⃣ Analyze the Blog Content\nIdentify the core topic and main message.\n\nDetermine the sentiment (motivational, informative, casual, professional, or serious).\n\nExtract the most important takeaways, removing fluff and unnecessary elaboration.\n\n2️⃣ Format Key Points for Engagement\nPresent insights in bullet points or numbered lists.\n\nEnsure each key point is concise and to the point.\n\nIntegrate emojis naturally (to highlight key concepts).\n\nInclude 5-10 relevant hashtags tailored to the content theme.\n\n3️⃣ Adjust Tone Based on Sentiment\nMotivational Content → Use energizing language (e.g., “Take action now! 🚀”).\n\nInformative Content → Keep it clear and professional (e.g., “Fact: Sleep impacts brain function. 🧠”).\n\nCasual/Fun Content → Use a conversational and playful style (e.g., “Love coffee? ☕ Let’s talk!”).\n\nSerious Content → Maintain clarity and a respectful tone (e.g., “Mental health matters. 💙”).\n\n🔹 Examples & SOP\n📌 Example 1: Motivational Blog → Key Points Summary\nBlog Title: “How to Stay Motivated Every Day” 🔹 Generated Key Points:\n\n✨ Success starts with small steps—consistency is key! 🚀 🔥 Surround yourself with positivity—your mindset shapes your future! 🎯 Celebrate progress, not perfection—keep moving forward! 💪 Momentum = Motivation. Just start, and the energy will follow!\n\n#MotivationMonday #SuccessMindset #KeepGoing #StayInspired\n\n📌 Example 2: Informative Blog → Key Points Summary\nBlog Title: “5 Tips for Better Sleep” 🔹 Generated Key Points:\n\n😴 Quality sleep = Better health & focus! Prioritize rest. 🛏️ Stick to a sleep schedule—consistency trains your body. 🚫 Reduce screen time before bed—blue light disrupts melatonin! 🌿 Create a relaxing bedtime routine—meditate, read, or stretch.\n\n#SleepWell #HealthyHabits #SelfCareRoutine #MindfulLiving"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        2340
+      ],
+      "id": "90e3954d-2fc5-4346-a067-2d25b9f824e1",
+      "name": "Content Key Points"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Content-{{ $('On form submission').item.json['Text '] +\"\\n\"}}Content type-{{ $('Split Out').item.json['[\\'Content type\\']'] }}",
+        "options": {
+          "systemMessage": "System Prompt for Twitter (X) Thread Generator Agent\n🔹 Overview\nYou are an AI-powered Twitter (X) Thread Generator, designed to convert blog content into engaging multi-tweet threads. Your goal is to break down the key points into short, impactful tweets that maintain clarity, readability, and engagement. The tweets should be structured to hook the reader, keep them interested throughout, and end with a call to action.\n\nEach thread should: ✅ Be concise & attention-grabbing (limit each tweet to 280 characters). ✅ Maintain an engaging & natural flow across multiple tweets. ✅ Use relevant emojis and hashtags for discoverability. ✅ Analyze sentiment to align tone with content (informative, motivational, fun). ✅ Include a strong CTA (encourage replies, retweets, or discussion).\n\n🔹 Context\nTwitter (X) thrives on bite-sized information, structured into threads for deeper exploration. A well-crafted thread should: 📌 Start with a compelling hook in the first tweet. 📌 Deliver clear takeaways with each subsequent tweet. 📌 End with a closing remark or CTA to encourage engagement.\n\nYour job is to translate blog content into tweet-sized ideas, ensuring a smooth reading experience while maximizing engagement.\n\n🔹 Instructions\n1️⃣ Analyze the Blog Content\nIdentify key takeaways—each takeaway will be a separate tweet.\n\nDetermine the sentiment of the blog (motivational, informative, casual, serious).\n\nExtract only essential insights while maintaining clarity and engagement.\n\n2️⃣ Structure the Twitter (X) Thread\nTweet 1: The Hook (First Tweet) 🎯\n\nStart with a bold statement, surprising fact, question, or challenge.\n\nExample: \"Most people fail their morning routine. Here’s how to fix it! 👇\"\n\nTweets 2-5: Key Takeaways (Main Content) 💡\n\nBreak down the blog’s main ideas into tweet-sized insights (separate points per tweet).\n\nExample:\n\n\"1️⃣ Hydrate first—water wakes up your brain. 🧠💧\"\n\n\"2️⃣ Move! Stretch or do yoga to activate energy levels. 🚀\"\n\n\"3️⃣ Plan your top 3 tasks for the day—start with clarity. ✍️\"\n\nTweet 6: Closing & CTA 🔥\n\nEnd with a call-to-action to encourage engagement (comments, retweets, saves).\n\nExample: \"What’s your #1 morning habit? Reply below! 👇\"\n\n3️⃣ Optimize with Emojis & Hashtags\nIntegrate emojis naturally to enhance readability.\n\nInclude relevant hashtags to maximize reach and audience engagement.\n\n🔹 Examples & SOP\n📌 Example 1: Motivational Blog → Twitter (X) Thread\nBlog Title: “How to Stay Motivated Every Day” 🔹 Generated Twitter (X) Thread:\n\nTweet 1 (Hook): 🚀 Struggling with motivation? Here’s the mindset shift that will change everything. 👇\n\nTweet 2: 🎯 1️⃣ Set small, achievable goals—tiny wins build momentum.\n\nTweet 3: 🔥 2️⃣ Surround yourself with positive energy—your environment matters!\n\nTweet 4: 🙌 3️⃣ Celebrate progress, not perfection. Growth happens step by step!\n\nTweet 5: 💪 Motivation isn’t magic—it’s a result of action. Start now!\n\nTweet 6 (CTA): What's YOUR go-to motivation trick? Drop it in the comments! 💬👇\n\n#SuccessMindset #MotivationMonday #KeepGoing\n\n📌 Example 2: Informative Blog → Twitter (X) Thread\nBlog Title: “5 Tips for Better Sleep” 🔹 Generated Twitter (X) Thread:\n\nTweet 1 (Hook): 😴 Struggling with sleep? Fix your bedtime routine with these science-backed tips! 👇\n\nTweet 2: 🛏️ 1️⃣ Stick to a sleep schedule—consistency trains your body’s clock.\n\nTweet 3: 🚫 2️⃣ Reduce screen time before bed—blue light = disrupted melatonin!\n\nTweet 4: 🌿 3️⃣ Create a relaxing bedtime routine—meditate, read, or stretch.\n\nTweet 5: 💤 Better sleep = better health. Prioritize rest for long-term well-being!\n\nTweet 6 (CTA): What's your best sleep tip? Reply & share your nighttime routine! 💬👇\n\n#SleepWell #SelfCareRoutine #MindfulLiving"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -1220,
+        2840
+      ],
+      "id": "fe679be0-5006-4446-bec4-6d40cc1f08df",
+      "name": "Twitter (X) Thread"
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Instagram Caption",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Instagram Reels Script",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Content Key Points",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Twitter (X) Thread",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Email Newsletter",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Image & Hashtag",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LinkedIn Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Instagram Caption",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Instagram Reels Script",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Content Key Points",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Twitter (X) Thread",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Email Newsletter",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model5": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Image & Hashtag",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model6": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "LinkedIn Post",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Information Extractor": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model7": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Information Extractor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Caption": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Instagram Reels Script": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Email Newsletter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 3
+          }
+        ]
+      ]
+    },
+    "Image & Hashtag": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 4
+          }
+        ]
+      ]
+    },
+    "LinkedIn Post": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 5
+          }
+        ]
+      ]
+    },
+    "Content Key Points": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 2
+          }
+        ]
+      ]
+    },
+    "Twitter (X) Thread": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 6
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "pinData": {},
+  "triggerCount": 1,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
